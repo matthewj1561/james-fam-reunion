@@ -1,10 +1,29 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 6rem;
+  padding: 5%;
   min-height: 100vh;
+}
+
+.input {
+  width: 100%;
+  margin: 0.3rem 0 0 0;
+  appearance: none;
+  border: none;
+  outline: none;
+  border-bottom: .2em solid #535bcb;
+  background: rgba(#535bcb, .2);
+  border-radius: .2em .2em 0 0;
+  padding: .4em;
+  color: white;
+}
+
+.img {
+  width: 100%;
+  border-radius: 5px;
+  max-height: 249px
 }
 
 .description {
@@ -41,7 +60,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto));
+  grid-template-columns: repeat(3, minmax(25%, auto));
   max-width: 100%;
   width: var(--max-width);
 }
@@ -49,9 +68,19 @@
 .card {
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
-  background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
+  /* background: rgba(var(--card-rgb), 0); */
+  /* border: 1px solid rgba(var(--card-border-rgb), 0); */
   transition: background 200ms, border 200ms;
+  background: rgba(var(--card-rgb), 0.1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
+}
+
+.comment {
+  padding: 1rem 1.2rem;
+  border-radius: var(--border-radius);
+  transition: background 200ms, border 200ms;
+  background: rgba(var(--card-rgb), 0.1);
+  border: 1px solid rgba(var(--card-border-rgb), 0.15);
 }
 
 .card span {
@@ -64,12 +93,64 @@
   margin-bottom: 0.7rem;
 }
 
+.text {
+  opacity: 0.6;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
 .card p {
+  width: 100%;
   margin: 0;
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
-  max-width: 30ch;
+  min-height: 43px;
+
+}
+
+.thumb {
+  width: 1.8rem;
+  height: 1.8rem;
+  transition: 0.2s all;
+  animation: dislike_401 400ms ease;
+}
+
+.thumbBlue {
+  width: 1.8rem;
+  height: 1.8rem;
+  filter: invert(50%) sepia(55%) saturate(456%) hue-rotate(161deg) brightness(107%) contrast(103%);
+  animation: like_401 400ms ease;
+}
+
+
+
+@keyframes like_401 {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike_401 {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .center {
@@ -77,7 +158,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 4rem 0;
+  padding: 1rem 0;
 }
 
 .center::before {
@@ -107,16 +188,50 @@
 .logo {
   position: relative;
 }
+
+.hr {
+  margin: 0.2rem -1.2rem;
+  transition: all 200ms;
+  opacity: 1;
+  background-color: #2A2A2A;
+  height: 1px;
+  border: none;
+}
+
+.button {
+  padding: 5px;
+  margin: 5px;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
+  .card {
+    background: rgba(var(--card-rgb), 0);
+    border: 1px solid rgba(var(--card-border-rgb), 0);
+  }
+
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
     border: 1px solid rgba(var(--card-border-rgb), 0.15);
   }
 
-  .card:hover span {
+  .thumb:hover {
+    scale: 1.1;
+    filter: invert(50%) sepia(55%) saturate(456%) hue-rotate(161deg) brightness(107%) contrast(103%);
+  }
+
+  .hr {
+    opacity: 0;
+  }
+
+  .card:hover hr {
+    opacity: 1;
+  }
+
+  .innerCard:hover span {
     transform: translateX(4px);
   }
+
 }
 
 @media (prefers-reduced-motion) {
@@ -127,8 +242,17 @@
 
 /* Mobile */
 @media (max-width: 700px) {
+
+  .comment {
+    margin: 0 -1.81em;
+  }
+
   .content {
     padding: 4rem;
+  }
+
+  .hr {
+    margin: 0.2rem -2.5rem;
   }
 
   .grid {
@@ -147,7 +271,7 @@
   }
 
   .center {
-    padding: 8rem 0 6rem;
+    padding: 4rem 0 6rem;
   }
 
   .center::before {
@@ -178,11 +302,9 @@
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
+    background: linear-gradient(to bottom,
+        rgba(var(--background-start-rgb), 1),
+        rgba(var(--callout-rgb), 0.5));
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
@@ -193,11 +315,9 @@
     inset: auto 0 0;
     padding: 2rem;
     height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%);
     z-index: 1;
   }
 }
@@ -223,6 +343,7 @@
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }
